@@ -5,8 +5,10 @@ class CustomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var index = 1;
     return BottomNavigationBar(
       // elevation: 0.0,
+      currentIndex: index,
       items: const [
         BottomNavigationBarItem(
             label: 'Balance', icon: Icon(Icons.account_balance_outlined)),

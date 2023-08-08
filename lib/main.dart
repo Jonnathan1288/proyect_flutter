@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
         // theme: ThemeData(
         //   primarySwatch: Colors.blue,
         // ),
+        theme: ThemeData.dark().copyWith(
+            appBarTheme: AppBarTheme(backgroundColor: Colors.grey[900]),
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              selectedItemColor: Colors.green,
+            ),
+            scaffoldBackgroundColor: Colors.grey[900],
+            primaryColorDark: Colors.grey[850]),
         initialRoute: 'home',
         routes: {'home': (_) => const HomePage()});
   }

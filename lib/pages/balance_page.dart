@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:proyect_app/widgets/balance_page_wt/back_seet.dart';
+import 'package:proyect_app/widgets/balance_page_wt/front_seet.dart';
 
 class BalancePage extends StatefulWidget {
   // const BalancePage({super.key});
@@ -9,11 +13,36 @@ class BalancePage extends StatefulWidget {
 }
 
 class _BalancePageState extends State<BalancePage> {
-  // final
+  final _scrollController = ScrollController();
+  double _offset = 0;
+
+  void _listener() {
+    setState(() {
+      _offset = _scrollController.offset / 100;
+    });
+  }
+
+  @override
+  void initState() {
+    //Una escucha
+    _scrollController.addListener(_listener);
+    _max; //Inizializar mi max.
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_listener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  double get _max => max(90 - _offset * 90, 0.0);
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: _scrollController,
       slivers: [
         const SliverAppBar(
           elevation: 0.0,
@@ -24,7 +53,7 @@ class _BalancePageState extends State<BalancePage> {
             children: [
               Text(
                 '\$ 2,500',
-                style: TextStyle(fontSize: 30.0),
+                style: TextStyle(fontSize: 30.0, color: Colors.green),
               ),
               Text(
                 'Blance',
@@ -37,26 +66,10 @@ class _BalancePageState extends State<BalancePage> {
             delegate: SliverChildListDelegate([
           Stack(
             children: [
-              Container(
-                height: 250.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColorDark,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(26.0),
-                      topRight: Radius.circular(26.0),
-                    )),
-              ),
+              const BackSheet(),
               Padding(
-                padding: const EdgeInsets.only(top: 150.0),
-                child: Container(
-                  height: 250.0,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(26.0),
-                        topRight: Radius.circular(26.0),
-                      )),
-                ),
+                padding: EdgeInsets.only(top: _max),
+                child: const FrontSheet(),
               )
             ],
           )
