@@ -4,6 +4,9 @@ import 'package:proyect_app/pages/charts_page.dart';
 
 import '../widgets/home_page_wt/custom_navigation_bar.dart';
 
+import 'package:provider/provider.dart';
+import 'package:proyect_app/providers/ui_provider.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -21,7 +24,8 @@ class _HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const currentIndex = 0;
+    final uiProvider = Provider.of<UIProvider>(context);
+    final currentIndex = uiProvider.bnbIndex;
 
     switch (currentIndex) {
       case 0:
