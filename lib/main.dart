@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyect_app/pages/add_entries.dart';
 import 'package:proyect_app/pages/home_page.dart';
 import 'package:proyect_app/providers/ui_provider.dart';
 
@@ -24,9 +25,15 @@ class MyApp extends StatelessWidget {
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
               selectedItemColor: Colors.green,
             ),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+                backgroundColor: Colors.green[900],
+                foregroundColor: Colors.white),
             scaffoldBackgroundColor: Colors.grey[900],
             primaryColorDark: Colors.grey[850]),
         initialRoute: 'home',
-        routes: {'home': (_) => const HomePage()});
+        routes: {
+          'home': (_) => const HomePage(),
+          'addEntries': (_) => const AddEntries()
+        });
   }
 }

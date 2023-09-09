@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:proyect_app/widgets/balance_page_wt/back_seet.dart';
+import 'package:proyect_app/widgets/balance_page_wt/custom_fab.dart';
 import 'package:proyect_app/widgets/balance_page_wt/front_seet.dart';
 
 class BalancePage extends StatefulWidget {
@@ -41,40 +42,43 @@ class _BalancePageState extends State<BalancePage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: _scrollController,
-      slivers: [
-        const SliverAppBar(
-          elevation: 0.0,
-          expandedHeight: 120,
-          flexibleSpace: FlexibleSpaceBar(
-              background: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '\$ 2,500',
-                style: TextStyle(fontSize: 30.0, color: Colors.green),
-              ),
-              Text(
-                'Blance',
-                style: TextStyle(fontSize: 16.0),
-              )
-            ],
-          )),
-        ),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          Stack(
-            children: [
-              const BackSheet(),
-              Padding(
-                padding: EdgeInsets.only(top: _max),
-                child: const FrontSheet(),
-              )
-            ],
-          )
-        ]))
-      ],
+    return Scaffold(
+      floatingActionButton: const CurstomFAB(),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          const SliverAppBar(
+            elevation: 0.0,
+            expandedHeight: 120,
+            flexibleSpace: FlexibleSpaceBar(
+                background: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '\$ 2,500',
+                  style: TextStyle(fontSize: 30.0, color: Colors.green),
+                ),
+                Text(
+                  'Blance',
+                  style: TextStyle(fontSize: 16.0),
+                )
+              ],
+            )),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Stack(
+              children: [
+                const BackSheet(),
+                Padding(
+                  padding: EdgeInsets.only(top: _max),
+                  child: const FrontSheet(),
+                )
+              ],
+            )
+          ]))
+        ],
+      ),
     );
   }
 }
