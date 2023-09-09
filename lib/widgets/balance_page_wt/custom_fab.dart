@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:proyect_app/pages/add_entries.dart';
 import 'package:proyect_app/pages/add_expenses.dart';
+import 'package:proyect_app/utils/page_animation_routes.dart';
 
 class CurstomFAB extends StatelessWidget {
   const CurstomFAB({super.key});
@@ -17,30 +19,10 @@ class CurstomFAB extends StatelessWidget {
         onTap: () {
           Navigator.push(
               context,
-              PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 600),
-                  transitionsBuilder: (
-                    BuildContext context,
-                    Animation<double> animation,
-                    Animation<double> secAnimation,
-                    Widget child,
-                  ) {
-                    animation = CurvedAnimation(
-                        parent: animation, curve: Curves.easeOutBack);
-
-                    return ScaleTransition(
-                      alignment: const Alignment(0.8, 0.8),
-                      scale: animation,
-                      child: child,
-                    );
-                  },
-                  pageBuilder: (
-                    BuildContext context,
-                    Animation<double> animation,
-                    Animation<double> secAnimation,
-                  ) {
-                    return const AddExpenses();
-                  }));
+              PageAnimationRoutes(
+                  widget: const AddExpenses(), ejex: 0.8, ejey: 0.8));
+          //Cambiams a codigo reuilizable:
+          // PageRouteBuilder()
         }));
 
     childButtons.add(SpeedDialChild(
@@ -49,7 +31,11 @@ class CurstomFAB extends StatelessWidget {
         label: 'Ingreso',
         labelStyle: const TextStyle(fontSize: 16.0),
         onTap: () {
-          Navigator.pushNamed(context, 'addEntries'); //other navigation
+          // Navigator.pushNamed(context, 'addEntries'); //other navigation more easy
+          Navigator.push(
+              context,
+              PageAnimationRoutes(
+                  widget: const AddEntries(), ejex: 0.8, ejey: 0.8));
         }));
 
     return SpeedDial(
