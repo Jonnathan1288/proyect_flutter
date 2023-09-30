@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:proyect_app/models/combined_model.dart';
 import 'package:proyect_app/utils/constants.dart';
 
 class BSNumberKeyboard extends StatefulWidget {
-  const BSNumberKeyboard({super.key});
+  final CombinedModel cModel;
+  // const BSNumberKeyboard({super.key});
+  const BSNumberKeyboard({Key? key, required this.cModel}) : super(key: key);
 
   @override
   State<BSNumberKeyboard> createState() => _BSNumberKeyboardState();
 }
 
 class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
-  String import = '0.0';
+  String import = '0.00';
+
+  @override
+  void initState() {
+    import = widget.cModel.amount.toStringAsFixed(2);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,12 @@ class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
   }
 
   _numPad() {
-    if (import == '0.0') import = '';
+    if (import == '0.00') import = '';
+
+    _expenseChange(String amount) {
+      if (amount == '') amount = '0.00';
+      widget.cModel.amount = double.parse(amount);
+    }
 
     _num(String text, double height) {
       return GestureDetector(
@@ -48,6 +62,7 @@ class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
         onTap: () {
           setState(() {
             import += text;
+            widget.cModel.amount = double.parse(import);
           });
         },
         child: SizedBox(
@@ -111,12 +126,14 @@ class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
                                   if (import.length > 0.0) {
                                     import =
                                         import.substring(0, import.length - 1);
+                                    _expenseChange(import);
                                   }
                                 });
                               },
                               onLongPress: () {
                                 setState(() {
                                   import = '';
+                                  _expenseChange(import);
                                 });
                               },
                               child: SizedBox(
@@ -139,7 +156,8 @@ class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
                                   Colors.transparent, Colors.red, "CANCELAR"),
                               onTap: () {
                                 setState(() {
-                                  import = '0.0';
+                                  import = '0.00';
+                                  _expenseChange(import);
                                   Navigator.pop(context);
                                 });
                               },
@@ -151,7 +169,8 @@ class _BSNumberKeyboardState extends State<BSNumberKeyboard> {
                                   Colors.green, Colors.transparent, "ACEPTAR"),
                               onTap: () {
                                 setState(() {
-                                  if (import.length == 0.0) import = '0.0';
+                                  if (import.length == 0.0) import = '0.00';
+                                  _expenseChange(import);
                                   Navigator.pop(context);
                                 });
                               },
